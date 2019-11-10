@@ -6,7 +6,7 @@ import Search from '../component/Search.jsx';
 import Categories from '../component/Categories';
 import Carousel from '../component/Carousel';
 import CarouselItem from '../component/CarouselItem';
-
+import Footer from '../component/Footer';
 //IMPORTANDO ESTILOS
 import '../assets/styles/App.scss';
 
@@ -18,15 +18,22 @@ const App = () => (
         < Search />
 
         <Categories>
+
             <Carousel>
-                <CarouselItem />
-                <CarouselItem />
-                <CarouselItem />
+
                 <CarouselItem />
 
-            </Carousel>
+                <CarouselItem />
+
+                <CarouselItem />
+
+                <CarouselItem />
+
+            </Carousel> 
+
         </Categories>
-
+        
+        <Footer />
     </div>
 );
 
