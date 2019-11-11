@@ -1,71 +1,51 @@
-import React, {useState, useEffect} from 'react';
-
+import React, {useEffect, useState} from 'react';
+// 
 //IMPORTANDO COMPONENTES
-import Header from '../component/Header';
+import Header from '../component/Header.jsx';
 import Search from '../component/Search.jsx';
-import Categories from '../component/Categories';
-import Carousel from '../component/Carousel';
-import CarouselItem from '../component/CarouselItem';
-import Footer from '../component/Footer';
+import Categories from '../component/Categories.jsx';
+import Carousel from '../component/Carousel.jsx';
+import CarouselItem from '../component/CarouselItem.jsx';
+import Footer from '../component/Footer.jsx';
 //IMPORTANDO ESTILOS
 import '../assets/styles/App.scss';
 
-
+import useInitialState from '../hooks/useInitialState.js';
+const API = 'http://localhost:3000/initalState';
 
 const App = () => {
-    const [videos, setVideos] = useState([]);
-    useEffect(() => {
-        fetch('http://localhost:3000/initalState')
-        .then(response => response.json())
-        .then(data => setVideos(data));
-      },[]
-    );
-
-     console.log(videos);
-
-
-    return (
+    const initialState = useInitialState(API);
+    return initialState.length === 0 ? <h1>Loading...</h1> : (
+        
         <div className="App">
             <Header />
             < Search />
-
+            {initialState.mylist.length > 0 &&
             <Categories title="Mi lista">
                 <Carousel>
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
+                {initialState.mylist.map(item =>
+              <CarouselItem key={item.id} {...item} />
+            )}
                 </Carousel> 
-            </Categories>
-
-
-
+            </Categories>    
+            }
 
             <Categories title="Tendencia">
                 <Carousel>
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
+                    {initialState.trends.map(item =>
+                        <CarouselItem key={item.id} {...item}/>
+                    )}
                 </Carousel> 
             </Categories>
-
 
 
             <Categories title="Originales">
                 <Carousel>
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
-                    <CarouselItem />
+                {initialState.originals.map(item =>
+            <CarouselItem key={item.id} {...item} />
+          )}
                 </Carousel> 
             </Categories>
-
 
             <Footer />
         </div>
