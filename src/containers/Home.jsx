@@ -1,28 +1,27 @@
 import React, {useEffect, useState} from 'react';
 // 
+import { connect } from 'react-redux';
 //IMPORTANDO COMPONENTES
-import Header from '../component/Header.jsx';
 import Search from '../component/Search.jsx';
 import Categories from '../component/Categories.jsx';
 import Carousel from '../component/Carousel.jsx';
 import CarouselItem from '../component/CarouselItem.jsx';
-import Footer from '../component/Footer.jsx';
+
 //IMPORTANDO ESTILOS
 import '../assets/styles/App.scss';
-
 import useInitialState from '../hooks/useInitialState.js';
-const API = 'http://localhost:3000/initalState';
 
-const Home = () => {
-    const initialState = useInitialState(API);
-    return initialState.length === 0 ? <h1>Loading...</h1> : (
+
+
+const Home = ({ myList, trends, originals }) => {
+    return (
         
         <React.Fragment>
             < Search />
-            {initialState.mylist.length > 0 &&
+            {myList.length > 0 &&
             <Categories title="Mi lista">
                 <Carousel>
-                {initialState.mylist.map(item =>
+                {myList.map(item =>
               <CarouselItem key={item.id} {...item} />
             )}
                 </Carousel> 
@@ -31,7 +30,7 @@ const Home = () => {
 
             <Categories title="Tendencia">
                 <Carousel>
-                    {initialState.trends.map(item =>
+                    {trends.map(item =>
                         <CarouselItem key={item.id} {...item}/>
                     )}
                 </Carousel> 
@@ -40,7 +39,7 @@ const Home = () => {
 
             <Categories title="Originales">
                 <Carousel>
-                {initialState.originals.map(item =>
+                {originals.map(item =>
             <CarouselItem key={item.id} {...item} />
           )}
                 </Carousel> 
@@ -49,5 +48,11 @@ const Home = () => {
     );
 }
 
-
-export default Home; 
+ const mapStateToProps = state => {
+        return {
+            myList: state.myList,
+            trends: state.trends,
+            originals: state.originals,
+        };
+    };
+export default connect(mapStateToProps, null)(Home);
