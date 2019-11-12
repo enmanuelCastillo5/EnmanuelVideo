@@ -9,9 +9,6 @@ import CarouselItem from '../component/CarouselItem.jsx';
 
 //IMPORTANDO ESTILOS
 import '../assets/styles/App.scss';
-import useInitialState from '../hooks/useInitialState.js';
-
-
 
 const Home = ({ myList, trends, originals }) => {
     return (

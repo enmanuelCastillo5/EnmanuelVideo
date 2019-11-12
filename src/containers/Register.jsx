@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../assets/styles/component/Register.scss';
 
-
-
 const Register = () => (
     <section className="register">
         <section className="register__container">
