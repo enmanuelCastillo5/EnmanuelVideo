@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import '../assets/styles/component/Search.scss';
 
@@ -16,5 +17,8 @@ const Search = ({ isHome }) => {
     );
 }
 
-
-export default Search;
+Search.propTypes = {
+    isHome: PropTypes.bool,
+  };
+  
+  export default Search;

@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { registerRequest } from "../actions";
+import Header from '../component/Header';
 import '../assets/styles/component/Register.scss';
 
 const Register = props => {
 const [form, setValues] = useState({
     email: '',
+    id: '',
     name: '',
     password: '',
 });
 
-const handleInput = event => {
+const updateInput = event => {
     setValues({
-        ...form,
-        [event.target.name]: event.target.value
-    })
-};
+      ...form,
+      [event.target.name]: event.target.value
+    });
+  };
 
 const handleSubmit = event => {
     event.preventDefault();
@@ -26,6 +29,8 @@ const handleSubmit = event => {
 
 
  return (
+     <>
+     <Header isRegister />
     <section className="register">
         <section className="register__container">
             <h2>Regístrate</h2>
@@ -37,7 +42,7 @@ const handleSubmit = event => {
                         className="input" 
                         type="text" 
                         placeholder="Nombre" 
-                        onChange={handleInput}
+                        onChange={updateInput}
                         />
 
 
@@ -47,7 +52,7 @@ const handleSubmit = event => {
                         className="input" 
                         type="text" 
                         placeholder="Correo" 
-                        onChange={handleInput}
+                        onChange={updateInput}
                         />
 
 
@@ -57,22 +62,28 @@ const handleSubmit = event => {
                         className="input" 
                         type="password" 
                         placeholder="Contraseña" 
-                        onChange={handleInput}
+                        onChange={updateInput}
                         />
 
 
 
-                    <button className="button">Registrarme</button>
+                    <button className="button" type="submit">Registrarme</button>
                 </form>
-            <Link to="/login">Iniciar sesión</Link>
+                <Link to="/login" className="register__container--login">
+                Iniciar sesión
+          </Link>
         </section>
     </section>
+  </>
    );
 }
 
 
 const mapDispatchToProps = {
     registerRequest,
+  };
+  Register.propTypes = {
+    registerRequest: PropTypes.func,
   };
   
   export default connect(null, mapDispatchToProps)(Register);

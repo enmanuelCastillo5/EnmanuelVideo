@@ -9,11 +9,12 @@ import plusIcon from '../assets/static/plus-icon.png';
 import removeIcon from '../assets/static/remove-icon.png';
 
 const CarouselItem = (props) => {
-    const { id, cover, title, year, contentRating, duration, isList } = props;
+  const { id, cover, title, year, contentRating, duration, isList, slug, source } = props;
   const handleSetFavorite = () => {
     props.setFavorite({
-       id, cover, title, year, contentRating, duration
-      })
+      id, cover, title, year, contentRating,
+      duration, isList, slug, source
+    });
   }
 
   const HandleDeleteFavorite = (itemId) => {
@@ -63,13 +64,15 @@ const CarouselItem = (props) => {
         </div>
 );
   }
-CarouselItem.propTypes = {
-  cover: PropTypes.string,
-  title: PropTypes.string,
-  year: PropTypes.number,
-  contentRating: PropTypes.string,
-  duration: PropTypes.number,
-};
+  CarouselItem.propTypes = {
+    title: PropTypes.string,
+    year: PropTypes.number,
+    contentRating: PropTypes.string,
+    duration: PropTypes.number,
+    cover: PropTypes.string,
+    deteleFavorite: PropTypes.func,
+    setFavorite: PropTypes.func,
+  };
 
 const mapDispatchToProps = {
   setFavorite,

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginRequest } from '../actions';
-import { Link,  } from 'react-router-dom';
+import { loginRequest } from "../actions";
 import '../assets/styles/component/Login.scss';
+import Header from '../component/Header';
 import googleIcon from '../assets/static/google-icon.png';
 import twitterIcon from '../assets/static/twitter-icon.png';
 
@@ -10,26 +12,27 @@ import twitterIcon from '../assets/static/twitter-icon.png';
 const Login = props => {
 const [form, setValues] = useState({
   email: '',
+  id: '',
+  name: '',
 
 });
 
-const handleInput = event => {
- setValues({
-   ...form,
-   [event.target.name]: event.target.value
- })
+const updateInput = event => {
+  setValues({
+    ...form,
+    [event.target.name]: event.target.value
+  });
 };
 
 const handleSubmit = event => {
   event.preventDefault();
   props.loginRequest(form)
-  console.log(form);
   props.history.push('/');
   }
 
-
-
   return (
+    <>
+    <Header isLogin />
         <section className="login">
         <section className="login__container">
           <h2>Inicia sesión</h2>
@@ -41,7 +44,7 @@ const handleSubmit = event => {
                 className="input" 
                 type="text" 
                 placeholder="Correo"
-                onChange={handleInput} />
+                onChange={updateInput} />
 
 
             <input 
@@ -49,7 +52,7 @@ const handleSubmit = event => {
                 className="input" 
                 type="password" 
                 placeholder="Contraseña"
-                onChange={handleInput} />
+                onChange={updateInput} />
 
 
             <button className="button">Iniciar sesión</button>
@@ -65,16 +68,19 @@ const handleSubmit = event => {
             <div><img src={twitterIcon} /> Inicia sesión con Twitter</div>
           </section>
           <p className="login__container--register">No tienes ninguna cuenta
-          <Link to="/register">{' '}Regístrate</Link></p>
+          {' '}
+          <Link to="/register">Regístrate</Link></p>
         </section>
       </section>
 
-
+ </>
     );
 }
 const mapDispatchToProps = {
   loginRequest,
 }
 
-
+Login.propTypes = {
+  loginRequest: PropTypes.func,
+};
 export default connect(null, mapDispatchToProps)(Login)

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getVideoSource } from '../actions';
 import '../assets/styles/component/Player.scss';
-import notFound from '../containers/notFound';
+import NotFound from './NotFound';
 
 
 const Player = props => {
@@ -13,7 +13,7 @@ const Player = props => {
             props.getVideoSource(id);
         }, []);
 
-    return hasplaying ? (
+    return !hasplaying ? <NotFound /> : (
         <div className="Player">
                 <video controls autoPlay>
                     <source src={props.playing.source} type="video/mp4" />
@@ -24,7 +24,7 @@ const Player = props => {
                     </button>
                 </div>
         </div>
-    ) : <notFound />;
+    );
 };
 
 

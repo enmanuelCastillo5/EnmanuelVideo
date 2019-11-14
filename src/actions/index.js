@@ -28,3 +28,5 @@ export const registerRequest = payload => ({
     type: 'GET_VIDEO_SOURCE',
     payload,
   });
+
+  export { setFavorite as default }
