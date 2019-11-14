@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Gravatar from '../utils/gravatar';
 import '../assets/styles/component/Header.scss';
@@ -11,7 +12,7 @@ import {logoutRequest} from '../actions';
 
 
 const Header = props => {
-  const { user } = props;
+   const { user, isLogin, isRegister } = props;
   const hasUser = Object.keys(user).length > 0;
 
 const handleLogout = () => {
@@ -65,4 +66,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   logoutRequest,
 }
+
+Header.propTypes = {
+  user: PropTypes.object,
+  isLogin: PropTypes.bool,
+  isRegister: PropTypes.bool,
+  logoutRequest: PropTypes.func,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
